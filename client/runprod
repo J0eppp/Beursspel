@@ -1,0 +1,1 @@
+sudo serve -s build --listen 5003 --ssl-cert "/etc/letsencrypt/live/beursspel.j0eppp.dev/fullchain.pem" --ssl-key "/etc/letsencrypt/live/beursspel.j0eppp.dev/privkey.pem"
