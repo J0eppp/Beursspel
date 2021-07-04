@@ -1,7 +1,7 @@
 package main
 
-import "fmt"
+import "github.com/J0eppp/goauthenticator"
 
 func main() {
-	fmt.Println("Hello!")
+	authenticator := goauthenticator.New
 }

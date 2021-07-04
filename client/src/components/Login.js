@@ -5,19 +5,27 @@ import { Form, Button, Input } from 'react-bootstrap';
 import '../css/login.css';
 
 export default class Login extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			username: "",
+			password: "",
+		}
+	}
+	
 	render() {
 		return (
 			<div>
 				{this.props.getState().loggedIn === true ? <Redirect to="/" /> : null}
-				<Form className="loginForm">
+				<Form className="loginForm" onSubmit={this.onLogin}>
 					<Form.Group controlId="username">
 						<Form.Label>Username</Form.Label>
-						<Form.Control type="text" placeholder="Enter username" />
+						<Form.Control type="text" onChange={e => this.setState({...this.state, username: e.target.value})} placeholder="Enter username" />
 						<Form.Text className="text-muted">Text</Form.Text>
 					</Form.Group>
 					<Form.Group controlId="password">
 						<Form.Label>Password</Form.Label>
-						<Form.Control type="password" placeholder="Password" />
+						<Form.Control type="password" onChange={e => this.setState({...this.state, password: e.target.value})} placeholder="Password" />
 					</Form.Group>
 					{/* <Form.Group controlId="formBasicCheckbox">
 						<Form.Check type="checkbox" label="Check me out" />
@@ -29,4 +37,14 @@ export default class Login extends Component {
 			</div>
 		)
 	}
+
+
+	onLogin = e => {
+		e.preventDefault();
+		this.sendLoginRequest();
+	}
+
+	sendLoginRequest = () => {
+		console.log(this.state);
+	};
 }
