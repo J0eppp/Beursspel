@@ -11,6 +11,7 @@ export default class App extends Component {
 		super();
 		this.state = {
 			loggedIn: false,
+			sessionToken: null,
 		}
 	}
 
@@ -18,6 +19,13 @@ export default class App extends Component {
 		this.setState({
 			...this.state,
 			loggedIn: loggedIn,
+		})
+	}
+
+	setSessionToken = sessionToken => {
+		this.setState({
+			...this.state,
+			sessionToken: sessionToken,
 		})
 	}
 
@@ -31,7 +39,7 @@ export default class App extends Component {
 						<Home getState={this.getState} />
 					</Route>
 					<Route path="/login">
-						<Login setLoggedIn={this.setLoggedIn} getState={this.getState} />
+						<Login setSessionToken={this.setSessionToken} setLoggedIn={this.setLoggedIn} getState={this.getState} />
 					</Route>
 				</Switch>
 			</Router>

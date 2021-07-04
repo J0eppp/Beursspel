@@ -10,6 +10,7 @@ export default class Login extends Component {
 		this.state = {
 			username: "",
 			password: "",
+			setSessionToken: props.setSessionToken,
 		}
 	}
 	
@@ -44,7 +45,13 @@ export default class Login extends Component {
 		this.sendLoginRequest();
 	}
 
-	sendLoginRequest = () => {
+	sendLoginRequest = async () => {
 		console.log(this.state);
+		let url = `${process.env.REACT_APP_BASE_BACKEND_URI}/login`;
+		let attempt = await fetch(url, {
+			"method": "POST",
+			"mode": "no-cors",
+			"body": JSON.stringify({ username: this.state.username, password: this.state.password })
+		});
 	};
 }
