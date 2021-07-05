@@ -37,13 +37,13 @@ func main() {
 	server.Router.HandleFunc("/login", server.Login).Methods("POST")
 	server.Router.HandleFunc("/register", server.Register).Methods("POST")
 
-	server.Router.HandleFunc("/get", getHandler)
+	server.ProtectedRouter = server.Router.Path("/").Subrouter().StrictSlash(false)
 
-	server.ProtectedRouter = server.Router.Path("/").Subrouter()
+	server.ProtectedRouter.Use(server.Authenticator.SessionHandler.ValidateSession)
 
-	server.ProtectedRouter.Use(authenticator.SessionHandler.ValidateSession)
+	//server.ProtectedRouter.HandleFunc("check", server.Session).Methods("GET")
 
-	server.ProtectedRouter.HandleFunc("/", indexHandler)
+	server.ProtectedRouter.HandleFunc("/", server.Session).Methods("GET")
 
 
 	log.Println("Webserver is running")

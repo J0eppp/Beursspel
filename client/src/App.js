@@ -9,9 +9,13 @@ import Login from './components/Login';
 export default class App extends Component {
 	constructor() {
 		super();
+		// Check if there is a valid session saved
+		let url = `${process.env.REACT_APP_BASE_BACKEND_URI}`;
+		fetch(url, { credentials: "include", mode: "no-cors" }).then(data => data.json()).then(json => console.log(json)).catch(err => console.error(err));
+
 		this.state = {
 			loggedIn: false,
-			sessionToken: null,
+			session: null,
 		}
 	}
 
@@ -22,11 +26,14 @@ export default class App extends Component {
 		})
 	}
 
-	setSessionToken = sessionToken => {
+	setSession = session => {
 		this.setState({
 			...this.state,
-			sessionToken: sessionToken,
-		})
+			session: session,
+		});
+
+		// Set the session cookie
+		document.cookie = `sessionToken=${session.sessionToken}`;
 	}
 
 	getState = () => this.state;
@@ -39,7 +46,7 @@ export default class App extends Component {
 						<Home getState={this.getState} />
 					</Route>
 					<Route path="/login">
-						<Login setSessionToken={this.setSessionToken} setLoggedIn={this.setLoggedIn} getState={this.getState} />
+						<Login setSession={this.setSession} setLoggedIn={this.setLoggedIn} getState={this.getState} />
 					</Route>
 				</Switch>
 			</Router>
