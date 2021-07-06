@@ -3,18 +3,19 @@ package database
 import (
 	"beursspel/pkg/user"
 	"context"
+	"log"
+
 	"github.com/J0eppp/goauthenticator"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"log"
 )
 
 // The database structure contains all the information about the MongoDB database
 type Database struct {
-	Client *mongo.Client
+	Client   *mongo.Client
 	Database *mongo.Database
-	Ctx context.Context
+	Ctx      context.Context
 }
 
 func NewDatabase(uri string, ctx context.Context) (Database, error) {
@@ -67,6 +68,13 @@ func (db *Database) SaveSessionToDatabase(uid string, session goauthenticator.Se
 	//	"$set": bson.M{"session": session},
 	//})
 	_, err := db.Database.Collection("sessions").InsertOne(db.Ctx, session)
+	return err
+}
+
+func (db *Database) RemoveSession(uid string) error {
+	_, err := db.Database.Collection("sessions").DeleteMany(db.Ctx, bson.M{
+		"uid": uid,
+	})
 	return err
 }
 

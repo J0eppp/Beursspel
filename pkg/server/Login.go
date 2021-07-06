@@ -64,6 +64,7 @@ func (s *Server) Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Return with a session
+	err = s.Database.RemoveSession(request.Username)
 	session, err := s.Authenticator.SessionHandler.CreateSession(request.Username)
 	if err != nil {
 		response := struct {
