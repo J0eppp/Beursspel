@@ -5,19 +5,30 @@ import './App.css';
 
 import Home from './components/Home';
 import Login from './components/Login';
+import Register from './components/Register';
 
 export default class App extends Component {
 	constructor() {
 		super();
-		// Check if there is a valid session saved
-		let url = `${process.env.REACT_APP_BASE_BACKEND_URI}`;
-		fetch(url, { credentials: "include", mode: "no-cors" }).then(data => data.json()).then(json => console.log(json)).catch(err => console.error(err));
-
 		this.state = {
 			loggedIn: false,
 			session: null,
-		}
+			redirectToLogin: false,
+		};
+		// Check if there is a valid session saved
+		(async () => {
+			let url = `${process.env.REACT_APP_BASE_BACKEND_URI}`;
+			const req = await fetch(url, { credentials: "include" });
+			const json = await req.json();
+			if (json.sessionToken) {
+				this.setState({ loggedIn: true, session: json })
+			} else {
+				this.setState({ ...this.state, redirectToLogin: true })
+			}
+		})();
 	}
+
+	setRedirectToLogin = b => this.setState({ ...this.state, redirectToLogin: b })
 
 	setLoggedIn = loggedIn => {
 		this.setState({
@@ -46,7 +57,10 @@ export default class App extends Component {
 						<Home getState={this.getState} />
 					</Route>
 					<Route path="/login">
-						<Login setSession={this.setSession} setLoggedIn={this.setLoggedIn} getState={this.getState} />
+						<Login setRedirectToLogin={this.setRedirectToLogin} setSession={this.setSession} setLoggedIn={this.setLoggedIn} getState={this.getState} />
+					</Route>
+					<Route path="/register">
+						<Register setRedirectToLogin={this.setRedirectToLogin} setSession={this.setSession} setLoggedIn={this.setLoggedIn} getState={this.getState} />
 					</Route>
 				</Switch>
 			</Router>

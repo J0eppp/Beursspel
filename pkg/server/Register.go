@@ -9,9 +9,9 @@ import (
 )
 
 type registerRequest struct {
-	Username string `json:"username"`
-	Email string `json:"email"`
-	Password string `json:"password"`
+	Username        string `json:"username"`
+	Email           string `json:"email"`
+	Password        string `json:"password"`
 	ConfirmPassword string `json:"confirmPassword"`
 }
 
@@ -20,11 +20,11 @@ func (s *Server) Register(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&request)
 	if err != nil {
 		w.Header().Set("Status", "500")
-		response := struct{
-			Error bool `json:"error"`
+		response := struct {
+			Error   bool   `json:"error"`
 			Message string `json:"message"`
 		}{
-			Error: true,
+			Error:   true,
 			Message: err.Error(),
 		}
 		err = json.NewEncoder(w).Encode(response)
@@ -36,11 +36,11 @@ func (s *Server) Register(w http.ResponseWriter, r *http.Request) {
 
 	if strings.Compare(request.Password, request.ConfirmPassword) != 0 {
 		w.Header().Set("Status", "400")
-		response := struct{
-			Error bool `json:"error"`
+		response := struct {
+			Error   bool   `json:"error"`
 			Message string `json:"message"`
 		}{
-			Error: true,
+			Error:   true,
 			Message: "The passwords do not match",
 		}
 		err = json.NewEncoder(w).Encode(response)
@@ -60,16 +60,14 @@ func (s *Server) Register(w http.ResponseWriter, r *http.Request) {
 		Salt:     string(salt),
 	}
 
-	log.Printf("%+v\n", u)
-
 	err = s.Database.SaveNewUser(u)
 	if err != nil {
 		w.Header().Set("Status", "500")
-		response := struct{
-			Error bool `json:"error"`
+		response := struct {
+			Error   bool   `json:"error"`
 			Message string `json:"message"`
 		}{
-			Error: true,
+			Error:   true,
 			Message: err.Error(),
 		}
 		err = json.NewEncoder(w).Encode(response)
@@ -79,7 +77,7 @@ func (s *Server) Register(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response := struct{
+	response := struct {
 		Success bool `json:"success"`
 	}{
 		Success: true,

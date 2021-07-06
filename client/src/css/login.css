@@ -1,9 +1,9 @@
-.loginForm {
+.authForm {
 	margin: auto;
 	width: 50%;
 	margin-top: 10px;
 }
 
-.loginButton {
+.authButton {
 	margin-top: 10px;
 }

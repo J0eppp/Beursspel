@@ -5,7 +5,7 @@ export default class Home extends Component {
 	render() {
 		return (
 			<div>
-				{this.props.getState().loggedIn === false && <Redirect to="/login" />}
+				{this.props.getState().redirectToLogin === true && <Redirect to="/login" />}
 				Home
 			</div>
 		)

@@ -1,6 +1,8 @@
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/J0eppp/goauthenticator v0.0.0-20210704151032-c8c30819b225 h1:rEveKIZsvMYt20dlYevTMvMvmE1NZpFB8BwWVNdFu0g=
 github.com/J0eppp/goauthenticator v0.0.0-20210704151032-c8c30819b225/go.mod h1:/dPWLUsTuVFsRJ1wlBZsy6ONpGNOcpWMpc3nlzYP6pk=
+github.com/J0eppp/goauthenticator v0.0.0-20210705095709-3dd7c34e31de h1:5jDyDdFknc12tnb0V3AL43dDwvAygHM41FUfyochIZY=
+github.com/J0eppp/goauthenticator v0.0.0-20210705095709-3dd7c34e31de/go.mod h1:/dPWLUsTuVFsRJ1wlBZsy6ONpGNOcpWMpc3nlzYP6pk=
 github.com/aws/aws-sdk-go v1.34.28 h1:sscPpn/Ns3i0F4HPEWAVcwdIRaZZCuL7llJ2/60yPIk=
 github.com/aws/aws-sdk-go v1.34.28/go.mod h1:H7NKnBqNVzoTJpGfLrQkkD+ytBA93eiDYi/+8rV9s48=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

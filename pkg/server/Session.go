@@ -10,11 +10,11 @@ func (s *Server) Session(w http.ResponseWriter, r *http.Request) {
 	c, err := r.Cookie("sessionToken")
 	if err != nil {
 		w.WriteHeader(500)
-		response := struct{
-			Error bool `json:"error"`
+		response := struct {
+			Error   bool   `json:"error"`
 			Message string `json:"message"`
 		}{
-			Error: true,
+			Error:   true,
 			Message: err.Error(),
 		}
 		err = json.NewEncoder(w).Encode(response)
@@ -28,11 +28,11 @@ func (s *Server) Session(w http.ResponseWriter, r *http.Request) {
 	session, err := s.Authenticator.SessionHandler.GetSessionFromDatabase(sessionToken)
 	if err != nil {
 		w.WriteHeader(500)
-		response := struct{
-			Error bool `json:"error"`
+		response := struct {
+			Error   bool   `json:"error"`
 			Message string `json:"message"`
 		}{
-			Error: true,
+			Error:   true,
 			Message: err.Error(),
 		}
 		err = json.NewEncoder(w).Encode(response)
@@ -41,7 +41,7 @@ func (s *Server) Session(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-	log.Println("Sending session data...")
+
 	err = json.NewEncoder(w).Encode(session)
 	if err != nil {
 		log.Println(err)

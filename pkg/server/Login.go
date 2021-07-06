@@ -17,11 +17,11 @@ func (s *Server) Login(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		//w.WriteHeader(500)
 		//w.Header().Set("Status", "500")
-		response := struct{
-			Error bool `json:"error"`
+		response := struct {
+			Error   bool   `json:"error"`
 			Message string `json:"message"`
 		}{
-			Error: true,
+			Error:   true,
 			Message: err.Error(),
 		}
 		err = json.NewEncoder(w).Encode(response)
@@ -33,11 +33,11 @@ func (s *Server) Login(w http.ResponseWriter, r *http.Request) {
 
 	correct, err := s.Authenticator.CheckPassword(request.Username, request.Password)
 	if err != nil {
-		response := struct{
-			Error bool `json:"error"`
+		response := struct {
+			Error   bool   `json:"error"`
 			Message string `json:"message"`
 		}{
-			Error: true,
+			Error:   true,
 			Message: err.Error(),
 		}
 		err = json.NewEncoder(w).Encode(response)
@@ -49,11 +49,11 @@ func (s *Server) Login(w http.ResponseWriter, r *http.Request) {
 
 	if correct == false {
 		//w.Header().Set("Status", "401")
-		response := struct{
-			Error bool `json:"error"`
+		response := struct {
+			Error   bool   `json:"error"`
 			Message string `json:"message"`
 		}{
-			Error: true,
+			Error:   true,
 			Message: "you entered the wrong password or username",
 		}
 		err = json.NewEncoder(w).Encode(response)
@@ -63,15 +63,14 @@ func (s *Server) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	
 	// Return with a session
 	session, err := s.Authenticator.SessionHandler.CreateSession(request.Username)
 	if err != nil {
-		response := struct{
-			Error bool `json:"error"`
+		response := struct {
+			Error   bool   `json:"error"`
 			Message string `json:"message"`
 		}{
-			Error: true,
+			Error:   true,
 			Message: err.Error(),
 		}
 		err = json.NewEncoder(w).Encode(response)
@@ -80,7 +79,7 @@ func (s *Server) Login(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-	
+
 	err = json.NewEncoder(w).Encode(session)
 	if err != nil {
 		log.Println(err)

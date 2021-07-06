@@ -21,12 +21,11 @@ export default class Login extends Component {
 		return (
 			<div>
 				{this.props.getState().loggedIn === true ? <Redirect to="/" /> : null}
-				{this.state.showErrorMessage && <Alert variant="danger">{this.state.errorMessage}</Alert>}
-				<Form className="loginForm" onSubmit={this.onLogin}>
+				<Form className="authForm" onSubmit={this.onLogin}>
+					{this.state.showErrorMessage && <Alert variant="danger">{this.state.errorMessage}</Alert>}
 					<Form.Group controlId="username">
 						<Form.Label>Username</Form.Label>
 						<Form.Control type="text" onChange={e => this.setState({ ...this.state, username: e.target.value })} placeholder="Enter username" />
-						<Form.Text className="text-muted">Text</Form.Text>
 					</Form.Group>
 					<Form.Group controlId="password">
 						<Form.Label>Password</Form.Label>
@@ -35,7 +34,7 @@ export default class Login extends Component {
 					{/* <Form.Group controlId="formBasicCheckbox">
 						<Form.Check type="checkbox" label="Check me out" />
 					</Form.Group> */}
-					<Button className="loginButton" variant="primary" type="submit">
+					<Button className="authButton" variant="primary" type="submit">
 						Submit
 					</Button>
 				</Form>
@@ -64,10 +63,10 @@ export default class Login extends Component {
 			return;
 		}
 
-		alert(json.sessionToken)
 		this.setState({ ...this.state, showErrorMessage: false, errorMessage: "" })
 		// Set the token in the "master" state (of App)
-		this.state.setSession(json);
-		this.state.setLoggedIn(true);
+		this.props.setRedirectToLogin(false);
+		this.props.setSession(json);
+		this.props.setLoggedIn(true);
 	};
 }
