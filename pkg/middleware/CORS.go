@@ -6,7 +6,7 @@ import "net/http"
 func CORS(next http.Handler) http.Handler {
 	return http.HandlerFunc(
 		func(w http.ResponseWriter, r *http.Request) {
-			w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+			w.Header().Set("Access-Control-Allow-Origin", "https://beursspel.j0eppp.dev")
 			w.Header().Set("Access-Control-Allow-Credentials", "true")
 			
 			next.ServeHTTP(w, r)

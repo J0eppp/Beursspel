@@ -47,7 +47,7 @@ func main() {
 
 
 	log.Println("Webserver is running")
-	log.Fatal(http.ListenAndServe(":8000", server.Router))
+	log.Fatal(http.ListenAndServeTLS(":5004", "/etc/letsencrypt/live/api.beursspel.j0eppp.dev/fullchain.pem", "/etc/letsencrypt/live/api.beursspel.j0eppp.dev/privkey.pem", server.Router))
 }
 
 // Protected route

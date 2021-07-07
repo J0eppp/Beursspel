@@ -16,4 +16,5 @@
 
 
 .idea/
+client/.env
 client/node_modules
