@@ -29,6 +29,7 @@ def users_get():
 def users_post():
 	username = request.json.get("username")
 	password = request.json.get("password")
+	
 	if username is None or password is None:
 		return jsonify({ "error": "you did not specify a username/password" }), 400
 	
