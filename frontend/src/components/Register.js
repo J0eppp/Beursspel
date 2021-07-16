@@ -69,6 +69,9 @@ export default class Register extends Component {
 
 		let attempt = await fetch(url, {
 			"method": "POST",
+			"headers": {
+				"Content-Type": "application/json"
+			},
 			"body": JSON.stringify({ username: this.state.username, password: this.state.password })
 		});
 		let json = await attempt.json();
