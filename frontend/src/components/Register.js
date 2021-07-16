@@ -11,7 +11,7 @@ export default class Register extends Component {
 			showErrorMessage: false,
 			errorMessage: "",
 			username: "",
-			email: "",
+			// email: "",
 			password: "",
 			confirmPassword: "",
 			setSession: props.setSession,
@@ -33,10 +33,10 @@ export default class Register extends Component {
 						<Form.Label>Username</Form.Label>
 						<Form.Control type="text" onChange={e => this.setState({ ...this.state, username: e.target.value })} placeholder="Enter username" />
 					</Form.Group>
-					<Form.Group controlId="Email">
+					{/* <Form.Group controlId="Email">
 						<Form.Label>Email</Form.Label>
 						<Form.Control type="text" onChange={e => this.setState({ ...this.state, email: e.target.value })} placeholder="Enter email" />
-					</Form.Group>
+					</Form.Group> */}
 					<Form.Group controlId="password">
 						<Form.Label>Password</Form.Label>
 						<Form.Control type="password" onChange={e => this.setState({ ...this.state, password: e.target.value, passwordsNotMatchAlert: false })} placeholder="Enter password" />
@@ -65,25 +65,19 @@ export default class Register extends Component {
 			this.setState({...this.state, passwordsNotMatchAlert: true})
 			return;
 		}
-		let url = `${process.env.REACT_APP_BASE_BACKEND_URI}/register`;
+		let url = `${process.env.REACT_APP_BASE_BACKEND_URI}/v1/users`;
 
 		let attempt = await fetch(url, {
 			"method": "POST",
-			"body": JSON.stringify({ username: this.state.username, email: this.state.email, password: this.state.password, confirmPassword: this.state.confirmPassword })
+			"body": JSON.stringify({ username: this.state.username, password: this.state.password })
 		});
 		let json = await attempt.json();
-		if (json.error === true) {
+		if (json.error) {
 			// Failed to register
-			this.setState({ ...this.state, showErrorMessage: true, errorMessage: json.message })
+			this.setState({ ...this.state, showErrorMessage: true, errorMessage: json.error })
 			return;
 		}
 
 		this.setState({ ...this.state, registerSuccessfull: true })
-
-		// alert(json.sessionToken)
-		// this.setState({ ...this.state, showErrorMessage: false, errorMessage: "" })
-		// Set the token in the "master" state (of App)
-		// this.state.setSession(json);
-		// this.state.setLoggedIn(true);
 	};
 }

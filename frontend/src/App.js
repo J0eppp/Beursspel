@@ -15,13 +15,17 @@ export default class App extends Component {
 			session: null,
 			redirectToLogin: false,
 		};
+	}
+
+	componentDidMount() {
 		// Check if there is a valid session saved
 		(async () => {
-			let url = `${process.env.REACT_APP_BASE_BACKEND_URI}`;
-			const req = await fetch(url, { credentials: "include" });
+			let url = `${process.env.REACT_APP_BASE_BACKEND_URI}/v1/session`;
+			// const req = await fetch(url, { credentials: "include" });
+			const req = await fetch(url, { headers: { "Authentication": localStorage.getItem("session") } })
 			const json = await req.json();
-			if (json.sessionToken) {
-				this.setState({ loggedIn: true, session: json })
+			if (json.token) {
+				this.setState({ loggedIn: true, session: json.token })
 			} else {
 				this.setState({ ...this.state, redirectToLogin: true })
 			}

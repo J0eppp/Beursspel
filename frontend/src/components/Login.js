@@ -50,23 +50,29 @@ export default class Login extends Component {
 
 	sendLoginRequest = async () => {
 		console.log(this.state);
-		let url = `${process.env.REACT_APP_BASE_BACKEND_URI}/login`;
+		let url = `${process.env.REACT_APP_BASE_BACKEND_URI}/v1/session`;
 		let attempt = await fetch(url, {
 			"method": "POST",
 			// "mode": "no-cors",
+			"headers": {
+				"Content-Type": "application/json"
+			},
 			"body": JSON.stringify({ username: this.state.username, password: this.state.password })
 		});
 		let json = await attempt.json();
-		if (json.error === true) {
+		if (!json.token) {
 			// Failed to login
-			this.setState({ ...this.state, showErrorMessage: true, errorMessage: json.message })
+			this.setState({ ...this.state, showErrorMessage: true, errorMessage: json.error })
 			return;
 		}
 
+		const token = json["token"]
+		localStorage.setItem("session", token);
+		console.log(localStorage.getItem("session"));
+
 		this.setState({ ...this.state, showErrorMessage: false, errorMessage: "" })
-		// Set the token in the "master" state (of App)
 		this.props.setRedirectToLogin(false);
-		this.props.setSession(json);
+		this.props.setSession(token);
 		this.props.setLoggedIn(true);
 	};
 }

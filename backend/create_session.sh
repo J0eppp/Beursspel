@@ -1,0 +1,1 @@
+curl http://localhost:8000/v1/session -X POST -H "Content-Type: application/json" -d '{ "username": "'$1'", "password": "'$2'" }' -i
