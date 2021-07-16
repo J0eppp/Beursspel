@@ -45,6 +45,11 @@ def users_post():
 	session.close()
 	return jsonify(user.serialize), 201
 
+@v1bp.route("/me", methods=["GET"])
+@login_required
+def me_get():
+	return jsonify(g.user.serialize)
+
 @v1bp.route("/session", methods=["POST"])
 def session_post():
 	try:
@@ -70,7 +75,7 @@ def session_post():
 		res.headers["Authentication"] = token
 		res.set_data(json.dumps({ "token": token }))
 		session.close()
-		return res
+		return res, 201
 
 	except Exception as e:
 		e = str(e)
