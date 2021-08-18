@@ -27,7 +27,6 @@ def users_get():
 # User registration
 @v1bp.route("/users", methods=["POST"])
 def users_post():
-	print(request.json)
 	username = request.json.get("username")
 	password = request.json.get("password")
 	

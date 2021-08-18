@@ -19,7 +19,7 @@ app.register_blueprint(v1bp, url_prefix="/api/v1/")
 def after_request(response):
 	header = response.headers
 	# header['Access-Control-Allow-Origin'] = 'http://localhost:3000'
-	header['Access-Control-Allow-Origin'] = 'https://beursspel.j0eppp.dev'
+	header['Access-Control-Allow-Origin'] = '*'
 
 	header['Access-Control-Allow-Headers'] = "Authentication, Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
 	# header['Access-Control-Allow-Credentials'] = "true"
@@ -30,4 +30,4 @@ def after_request(response):
 	return response
 
 # Run flask
-app.run(port=5004)
+app.run(port=8000)

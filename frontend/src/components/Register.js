@@ -65,7 +65,7 @@ export default class Register extends Component {
 			this.setState({...this.state, passwordsNotMatchAlert: true})
 			return;
 		}
-		let url = `${process.env.REACT_APP_BASE_BACKEND_URI}/v1/users`;
+		let url = `${process.env.REACT_APP_BASE_BACKEND_URI}/api/v1/users`;
 
 		let attempt = await fetch(url, {
 			"method": "POST",

@@ -5,9 +5,8 @@ from flask import Blueprint, jsonify
 v1bp = Blueprint("v1", __name__)
 
 # Import the files for the routes
-# from . import members
-# from . import events
 from . import authentication
+from . import games
 
 
 @v1bp.route('/')

@@ -50,7 +50,7 @@ export default class Login extends Component {
 
 	sendLoginRequest = async () => {
 		console.log(this.state);
-		let url = `${process.env.REACT_APP_BASE_BACKEND_URI}/v1/session`;
+		let url = `${process.env.REACT_APP_BASE_BACKEND_URI}/api/v1/session`;
 		let attempt = await fetch(url, {
 			"method": "POST",
 			// "mode": "no-cors",

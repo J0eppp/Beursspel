@@ -20,7 +20,7 @@ export default class App extends Component {
 	componentDidMount() {
 		// Check if there is a valid session saved
 		(async () => {
-			let url = `${process.env.REACT_APP_BASE_BACKEND_URI}/v1/session`;
+			let url = `${process.env.REACT_APP_BASE_BACKEND_URI}/api/v1/session`;
 			// const req = await fetch(url, { credentials: "include" });
 			const req = await fetch(url, { headers: { "Authentication": localStorage.getItem("session") } })
 			const json = await req.json();

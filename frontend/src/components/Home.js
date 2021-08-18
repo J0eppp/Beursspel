@@ -12,7 +12,7 @@ export default class Home extends Component {
 
 	componentDidMount() {
 		(async () => {
-			let url = `${process.env.REACT_APP_BASE_BACKEND_URI}/v1/me`;
+			let url = `${process.env.REACT_APP_BASE_BACKEND_URI}/api/v1/me`;
 			const req = await fetch(url, { headers: { "Authentication": localStorage.getItem("session") } })
 			const json = await req.json();
 			this.setState({ ...this.state, username: json["username"] })
